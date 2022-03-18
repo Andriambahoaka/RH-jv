@@ -26,10 +26,17 @@ public class employeController extends HttpServlet {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
       try {
+         switch (request.getParameter("action")) {
+            case "add":
+               eservice.save(request.getParameter("idcategorie"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("cin"), request.getParameter("contact"), request.getParameter("datenaissance"));
+               response.sendRedirect("AllEmploye.jsp");
+               break;
+            case "update":
+               eservice.update(request.getParameter("idEmploye"), request.getParameter("idcategorie"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("cin"), request.getParameter("contact"), request.getParameter("datenaissance"));
+               response.sendRedirect("AllEmploye.jsp");
+               break;
+         }
 
-         eservice.save(request.getParameter("idcategorie"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("cin"), request.getParameter("contact"), request.getParameter("datenaissance"));
-         
-         response.sendRedirect("AllEmploye.jsp");
       } catch (Exception e) {
          e.printStackTrace();
       }
